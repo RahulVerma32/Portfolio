@@ -1,200 +1,63 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import Particle from "../Particle";
-import { AiOutlineMail, AiOutlineUser, AiOutlineMessage } from "react-icons/ai";
+import { Form } from "react-bootstrap";
+import { FiArrowUpRight } from "react-icons/fi";
+
+const email = "rahulverma.work1@gmail.com";
 
 function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-
   const [status, setStatus] = useState("");
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  function handleSubmit(event) {
+    event.preventDefault();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    // Create mailto link with form data
-    const mailtoLink = `mailto:vermarahul0745@gmail.com?subject=${encodeURIComponent(
-      formData.subject
-    )}&body=${encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-    )}`;
-    
-    // Open default email client
-    window.location.href = mailtoLink;
-    
-    setStatus("Opening your email client...");
-    
-    // Reset form after a delay
-    setTimeout(() => {
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      });
-      setStatus("");
-    }, 2000);
-  };
+    const fields = new FormData(event.currentTarget);
+    const subject = encodeURIComponent(fields.get("subject"));
+    const body = encodeURIComponent(
+      `Name: ${fields.get("name")}\nEmail: ${fields.get("email")}\n\n${fields.get("message")}`
+    );
+
+    setStatus("Opening your email app with the message filled in.");
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+  }
 
   return (
-    <Container fluid className="project-section">
-      <Particle />
-      <Container style={{ position: "relative", zIndex: 1 }}>
-        <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
-          <Col md={8}>
-            <h1 className="project-heading" style={{ paddingBottom: "20px" }}>
-              Get In <strong className="purple">Touch </strong>
-            </h1>
-            <p style={{ color: "white", textAlign: "center", paddingBottom: "30px" }}>
-              Feel free to reach out to me for any queries or collaboration opportunities!
-            </p>
+    <section className="site-shell inner-page">
+      <div className="page-heading">
+        <p className="eyebrow"><span className="index-mark" /> Contact</p>
+        <h1>Let’s <em>talk.</em></h1>
+        <p>Reach out if you’d like to collaborate or have a question about my work.</p>
+      </div>
 
-            <Form onSubmit={handleSubmit} className="contact-form" style={{ position: "relative", zIndex: 2 }}>
-              <Form.Group className="mb-3" controlId="formName">
-                <Form.Label style={{ color: "white" }}>
-                  <AiOutlineUser style={{ marginRight: "10px" }} />
-                  Your Name
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter your name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  style={{
-                    backgroundColor: "transparent",
-                    border: "1px solid rgba(197, 115, 230, 0.883)",
-                    color: "white",
-                    position: "relative",
-                    zIndex: 3,
-                  }}
-                  className="form-control-custom"
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="formEmail">
-                <Form.Label style={{ color: "white" }}>
-                  <AiOutlineMail style={{ marginRight: "10px" }} />
-                  Your Email
-                </Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="Enter your email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  style={{
-                    backgroundColor: "transparent",
-                    border: "1px solid rgba(197, 115, 230, 0.883)",
-                    color: "white",
-                    position: "relative",
-                    zIndex: 3,
-                  }}
-                  className="form-control-custom"
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="formSubject">
-                <Form.Label style={{ color: "white" }}>
-                  <AiOutlineMessage style={{ marginRight: "10px" }} />
-                  Subject
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  style={{
-                    backgroundColor: "transparent",
-                    border: "1px solid rgba(197, 115, 230, 0.883)",
-                    color: "white",
-                    position: "relative",
-                    zIndex: 3,
-                  }}
-                  className="form-control-custom"
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="formMessage">
-                <Form.Label style={{ color: "white" }}>
-                  <AiOutlineMessage style={{ marginRight: "10px" }} />
-                  Message
-                </Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={6}
-                  placeholder="Enter your message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  style={{
-                    backgroundColor: "transparent",
-                    border: "1px solid rgba(197, 115, 230, 0.883)",
-                    color: "white",
-                    position: "relative",
-                    zIndex: 3,
-                  }}
-                  className="form-control-custom"
-                />
-              </Form.Group>
-
-              <Button
-                variant="primary"
-                type="submit"
-                style={{
-                  width: "100%",
-                  padding: "12px",
-                  fontSize: "18px",
-                  marginTop: "20px",
-                }}
-              >
-                Send Message
-              </Button>
-
-              {status && (
-                <p
-                  style={{
-                    color: "#c770f0",
-                    textAlign: "center",
-                    marginTop: "20px",
-                  }}
-                >
-                  {status}
-                </p>
-              )}
-            </Form>
-
-            <div style={{ marginTop: "40px", textAlign: "center" }}>
-              <p style={{ color: "white" }}>
-                Or email me directly at:{" "}
-                <a
-                  href="mailto:vermarahul0745@gmail.com"
-                  style={{ color: "#c770f0", textDecoration: "none" }}
-                >
-                  vermarahul0745@gmail.com
-                </a>
-              </p>
-            </div>
-          </Col>
-        </Row>
-      </Container>
-    </Container>
+      <div className="contact-layout">
+        <div className="surface contact-details">
+          <h2>Say hello</h2>
+          <p>You can email me directly or use the form to start a draft in your email app.</p>
+          <a href={`mailto:${email}`}>{email}</a>
+        </div>
+        <Form onSubmit={handleSubmit} className="surface contact-form">
+          <Form.Group className="mb-3" controlId="contact-name">
+            <Form.Label>Your name</Form.Label>
+            <Form.Control name="name" type="text" autoComplete="name" required />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="contact-email">
+            <Form.Label>Your email</Form.Label>
+            <Form.Control name="email" type="email" autoComplete="email" required />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="contact-subject">
+            <Form.Label>Subject</Form.Label>
+            <Form.Control name="subject" type="text" required />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="contact-message">
+            <Form.Label>Message</Form.Label>
+            <Form.Control name="message" as="textarea" rows={5} required />
+          </Form.Group>
+          <button className="pill-button pill-dark" type="submit">
+            Open email draft <FiArrowUpRight aria-hidden="true" />
+          </button>
+          <div role="status">{status && <p className="form-status">{status}</p>}</div>
+        </Form>
+      </div>
+    </section>
   );
 }
 

@@ -1,109 +1,63 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import homeLogo from "../../Assets/home-main.svg";
-import Particle from "../Particle";
-import Home2 from "./Home2";
-import Type from "./Type";
-import Techstack from "../About/Techstack";
-import Github from "../About/Github";
-import {
-  AiFillGithub,
-  AiOutlineTwitter,
-  AiFillInstagram,
-} from "react-icons/ai";
-import { FaLinkedinIn } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { FiArrowDownRight, FiArrowRight, FiArrowUpRight, FiGithub } from "react-icons/fi";
+import Orbit from "./Orbit";
+import Experience from "./Experience";
+import { ProjectGrid } from "../Projects/Projects";
 
 function Home() {
   return (
-    <section>
-      <Container fluid className="home-section" id="home">
-        <Particle />
-        <Container className="home-content">
-          <Row>
-            <Col md={7} className="home-header">
-              <h1 style={{ paddingBottom: 15 }} className="heading">
-                Hi There!{" "}
-                <span className="wave" role="img" aria-labelledby="wave">
-                  👋🏻
-                </span>
-              </h1>
+    <>
+      <section className="site-shell hero" aria-labelledby="hero-title">
+        <div className="hero-copy">
+          <p className="eyebrow hero-kicker"><span className="index-mark" /> Software developer · Portfolio</p>
+          <h1 id="hero-title">Rahul <em>Verma.</em></h1>
+          <p className="hero-description">
+            I build full-stack web applications with a focus on clean APIs,
+            secure backends, and real-time features.
+          </p>
+          <div className="hero-actions">
+            <Link className="pill-button pill-dark" to="/project">
+              Explore my work <FiArrowDownRight aria-hidden="true" />
+            </Link>
+            <a className="pill-button pill-outline" href="https://github.com/RahulVerma32" target="_blank" rel="noreferrer">
+              <FiGithub aria-hidden="true" /> GitHub
+            </a>
+          </div>
+        </div>
+        <Orbit />
+        <div className="hero-notes" aria-hidden="true">
+          <span>Based in India</span>
+          <span>Fig. 01 / Orbital study</span>
+        </div>
+      </section>
 
-              <h1 className="heading-name">
-                I'M
-                <strong className="main-name"> RAHUL VERMA</strong>
-              </h1>
+      <Experience />
 
-              <div style={{ padding: 50, textAlign: "left" }}>
-                <Type />
-              </div>
-            </Col>
+      <section className="site-shell work-section home-projects" aria-labelledby="selected-work">
+        <div className="section-intro">
+          <div>
+            <p className="eyebrow"><span className="index-mark" /> 02 / Projects</p>
+            <h2 id="selected-work">Selected <em>work.</em></h2>
+          </div>
+          <Link className="text-link" to="/project">
+            All projects <FiArrowUpRight aria-hidden="true" />
+          </Link>
+        </div>
+        <ProjectGrid featured />
+      </section>
 
-            <Col md={5} style={{ paddingBottom: 20 }}>
-              <img
-                src={homeLogo}
-                alt="home pic"
-                className="img-fluid"
-                style={{ maxHeight: "450px" }}
-              />
-            </Col>
-          </Row>
-        </Container>
-      </Container>
-      <Home2 />
-
-      <Container>
-        <Row style={{ paddingTop: "50px", paddingBottom: "80px" }}>
-          <Col md={12} className="home-about-social">
-            <h1>Find Me On</h1>
-            <p>
-              Feel free to <span className="purple">connect </span>with me
-            </p>
-            <ul className="home-about-social-links">
-              <li className="social-icons">
-                <a
-                  href="https://github.com/RahulVerma32"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="icon-colour  home-social-icons"
-                >
-                  <AiFillGithub />
-                </a>
-              </li>
-              <li className="social-icons">
-                <a
-                  href="https://twitter.com/RahulV88481"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="icon-colour  home-social-icons"
-                >
-                  <AiOutlineTwitter />
-                </a>
-              </li>
-              <li className="social-icons">
-                <a
-                  href="www.linkedin.com/in/rahul-verma-a79ba"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="icon-colour  home-social-icons"
-                >
-                  <FaLinkedinIn />
-                </a>
-              </li>
-              <li className="social-icons">
-                <a
-                  href="https://www.instagram.com/rahulverma_o7"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="icon-colour home-social-icons"
-                >
-                  <AiFillInstagram />
-                </a>
-              </li>
-            </ul>
-          </Col>
-        </Row>
-      </Container>
-    </section>
+      <section className="site-shell home-about" aria-labelledby="home-about">
+        <div>
+          <p className="eyebrow"><span className="index-mark" /> 03 / About</p>
+          <h2 id="home-about">Behind <em>the build.</em></h2>
+        </div>
+        <div>
+          <p>I’m a software developer with a B.Tech in Electronics and Communication Engineering from IIIT Bhopal. I enjoy building APIs and working on the systems that make web apps fast and reliable.</p>
+          <Link className="text-link" to="/about">More about me <FiArrowRight aria-hidden="true" /></Link>
+        </div>
+      </section>
+    </>
   );
 }
 

@@ -1,67 +1,42 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import {
-  AiFillGithub,
-  AiOutlineTwitter,
-  AiFillInstagram,
-} from "react-icons/ai";
-import { FaLinkedinIn } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { FiArrowUpRight } from "react-icons/fi";
+import { FaGithub, FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa";
+
+const socialLinks = [
+  ["GitHub", "https://github.com/RahulVerma32", FaGithub],
+  ["LinkedIn", "https://www.linkedin.com/in/rahul-verma-connect/", FaLinkedinIn],
+  ["Twitter", "https://twitter.com/RahulV88481", FaTwitter],
+  ["Instagram", "https://www.instagram.com/rahulverma_o7", FaInstagram],
+];
 
 function Footer() {
-  let date = new Date();
-  let year = date.getFullYear();
   return (
-    <Container fluid className="footer">
-      <Row>
-        <Col md="4" className="footer-copywright">
-          <h3>Copyright © {year} RV</h3>
-        </Col>
-        <Col md="4" className="footer-body">
-          <ul className="footer-icons">
-            <li className="social-icons">
-              <a
-                href="https://github.com/RahulVerma32"
-                style={{ color: "white" }}
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
-                <AiFillGithub />
-              </a>
-            </li>
-            <li className="social-icons">
-              <a
-                href="https://twitter.com/RahulV88481"
-                style={{ color: "white" }}
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
-                <AiOutlineTwitter />
-              </a>
-            </li>
-            <li className="social-icons">
-              <a
-                href="www.linkedin.com/in/rahul-verma-a79ba"
-                style={{ color: "white" }}
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
-                <FaLinkedinIn />
-              </a>
-            </li>
-            <li className="social-icons">
-              <a
-                href="https://www.instagram.com/rahulverma_o7"
-                style={{ color: "white" }}
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
-                <AiFillInstagram />
-              </a>
-            </li>
+    <footer className="site-footer">
+      <div className="site-shell">
+        <div className="footer-invite">
+          <div>
+            <p className="eyebrow"><span className="index-mark" /> Get in touch</p>
+            <h2>Let’s build <em>something.</em></h2>
+          </div>
+          <Link className="pill-button pill-dark" to="/contact">
+            Say hello <FiArrowUpRight aria-hidden="true" />
+          </Link>
+        </div>
+        <div className="footer-bottom">
+          <span>© {new Date().getFullYear()} Rahul Verma</span>
+          <ul className="social-links">
+            {socialLinks.map(([label, href, Icon]) => (
+              <li key={label}>
+                <a href={href} target="_blank" rel="noreferrer" aria-label={label}>
+                  <Icon aria-hidden="true" />
+                </a>
+              </li>
+            ))}
           </ul>
-        </Col>
-      </Row>
-    </Container>
+        </div>
+      </div>
+    </footer>
   );
 }
 

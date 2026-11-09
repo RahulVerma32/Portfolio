@@ -1,6 +1,5 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import chrome from "../../Assets/TechIcons/Google Chrome.svg";
 import vsCode from "../../Assets/TechIcons/vscode.svg";
 import Postman from "../../Assets/TechIcons/Postman.svg";
 import Docker from "../../Assets/TechIcons/Docker.svg";
@@ -9,7 +8,7 @@ import Kubernates from "../../Assets/TechIcons/Kubernates.svg";
 
 function Toolstack() {
   return (
-    <Row style={{ justifyContent: "center", paddingBottom: "50px" }}>
+    <Row style={{ marginInline: 0 }}>
       <Col xs={4} md={2} className="tech-icons">
         <img src={Git} alt="git" />
         <div className="tech-icons-text">Git</div>

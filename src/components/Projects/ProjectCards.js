@@ -1,40 +1,35 @@
 import React from "react";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
-import { CgWebsite } from "react-icons/cg";
-import { BsGithub } from "react-icons/bs";
+import { FiArrowUpRight, FiGithub } from "react-icons/fi";
 
-function ProjectCards(props) {
+export default function ProjectCard({
+  icon: Icon, coverName, title, titleAs: Title, category, description,
+  technologies, ghLink, demoLink, number,
+}) {
   return (
-    <Card className="project-card-view">
-      <Card.Img variant="top" src={props.imgPath} alt="card-img" />
-      <Card.Body>
-        <Card.Title>{props.title}</Card.Title>
-        <Card.Text style={{ textAlign: "justify" }}>
-          {props.description}
-        </Card.Text>
-        <Button variant="primary" href={props.ghLink} target="_blank">
-          <BsGithub /> &nbsp;
-          {props.isBlog ? "Blog" : "GitHub"}
-        </Button>
-        {"\n"}
-        {"\n"}
-
-        {/* If the component contains Demo link and if it's not a Blog then, it will render the below component  */}
-
-        {!props.isBlog && props.demoLink && (
-          <Button
-            variant="primary"
-            href={props.demoLink}
-            target="_blank"
-            style={{ marginLeft: "10px" }}
-          >
-            <CgWebsite /> &nbsp;
-            {"Demo"}
-          </Button>
-        )}
-      </Card.Body>
-    </Card>
+    <article className="project-card">
+      <div className="project-media" aria-hidden="true">
+        <span className="project-cover-index">Project / {String(number).padStart(2, "0")}</span>
+        <div className="project-cover-tile"><Icon /></div>
+        <span className="project-cover-name">{coverName}</span>
+      </div>
+      <div className="project-body">
+        <p className="eyebrow">{String(number).padStart(2, "0")} / {category}</p>
+        <Title className="project-title">{title}</Title>
+        <p className="project-description">{description}</p>
+        <ul className="technology-list" aria-label="Technologies">
+          {technologies.map((technology) => <li key={technology}>{technology}</li>)}
+        </ul>
+        <div className="project-links">
+          <a className="text-link" href={ghLink} target="_blank" rel="noreferrer" aria-label={`${title} on GitHub`}>
+            <FiGithub aria-hidden="true" /> GitHub
+          </a>
+          {demoLink && (
+            <a className="text-link" href={demoLink} target="_blank" rel="noreferrer" aria-label={`Live demo of ${title}`}>
+              Live demo <FiArrowUpRight aria-hidden="true" />
+            </a>
+          )}
+        </div>
+      </div>
+    </article>
   );
 }
-export default ProjectCards;

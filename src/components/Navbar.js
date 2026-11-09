@@ -1,107 +1,55 @@
 import React, { useState } from "react";
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import Container from "react-bootstrap/Container";
-import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
-import { CgGitFork } from "react-icons/cg";
-import {
-  AiFillStar,
-  AiOutlineHome,
-  AiOutlineFundProjectionScreen,
-  AiOutlineUser,
-  AiOutlineMail,
-} from "react-icons/ai";
+import { Link, NavLink } from "react-router-dom";
+import { FiArrowUpRight, FiMenu, FiX } from "react-icons/fi";
 
-import { CgFileDocument } from "react-icons/cg";
+const pages = [
+  ["/", "Home"],
+  ["/project", "Projects"],
+  ["/about", "About"],
+  ["/resume", "Resume"],
+];
 
-function NavBar() {
-  const [expand, updateExpanded] = useState(false);
-  const [navColour, updateNavbar] = useState(false);
-
-  function scrollHandler() {
-    if (window.scrollY >= 20) {
-      updateNavbar(true);
-    } else {
-      updateNavbar(false);
-    }
-  }
-
-  window.addEventListener("scroll", scrollHandler);
+function Navbar() {
+  const [expanded, setExpanded] = useState(false);
+  const closeMenu = () => setExpanded(false);
 
   return (
-    <Navbar
-      expanded={expand}
-      fixed="top"
-      expand="md"
-      className={navColour ? "sticky" : "navbar"}
-    >
-      <Container>
-        <Navbar.Toggle
-          aria-controls="responsive-navbar-nav"
-          onClick={() => {
-            updateExpanded(expand ? false : "expanded");
-          }}
+    <header className="site-header">
+      <div className="site-shell nav-shell">
+        <Link className="brand" to="/" onClick={closeMenu}>
+          <span className="brand-mark" aria-hidden="true">rv</span>
+          Rahul Verma
+        </Link>
+        <button
+          className="menu-toggle"
+          type="button"
+          aria-expanded={expanded}
+          aria-controls="site-navigation"
+          aria-label={expanded ? "Close menu" : "Open menu"}
+          onClick={() => setExpanded(!expanded)}
         >
-          <span></span>
-          <span></span>
-          <span></span>
-        </Navbar.Toggle>
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="mx-auto" defaultActiveKey="#home">
-            <Nav.Item>
-              <Nav.Link as={Link} to="/" onClick={() => updateExpanded(false)}>
-                <AiOutlineHome style={{ marginBottom: "2px" }} /> Home
-              </Nav.Link>
-            </Nav.Item>
-
-            <Nav.Item>
-              <Nav.Link
-                as={Link}
-                to="/about"
-                onClick={() => updateExpanded(false)}
-              >
-                <AiOutlineUser style={{ marginBottom: "2px" }} /> About
-              </Nav.Link>
-            </Nav.Item>
-
-            <Nav.Item>
-              <Nav.Link
-                as={Link}
-                to="/project"
-                onClick={() => updateExpanded(false)}
-              >
-                <AiOutlineFundProjectionScreen
-                  style={{ marginBottom: "2px" }}
-                />{" "}
-                Projects
-              </Nav.Link>
-            </Nav.Item>
-
-            <Nav.Item>
-              <Nav.Link
-                as={Link}
-                to="/resume"
-                onClick={() => updateExpanded(false)}
-              >
-                <CgFileDocument style={{ marginBottom: "2px" }} /> Resume
-              </Nav.Link>
-            </Nav.Item>
-
-            <Nav.Item>
-              <Nav.Link
-                as={Link}
-                to="/contact"
-                onClick={() => updateExpanded(false)}
-              >
-                <AiOutlineMail style={{ marginBottom: "2px" }} /> Contact
-              </Nav.Link>
-            </Nav.Item>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+          {expanded ? <FiX /> : <FiMenu />}
+        </button>
+        <nav
+          id="site-navigation"
+          aria-label="Main navigation"
+          className={expanded ? "site-nav is-open" : "site-nav"}
+        >
+          {pages.map(([path, label]) => (
+            <NavLink key={path} to={path} end={path === "/"} onClick={closeMenu}>
+              {label}
+            </NavLink>
+          ))}
+          <NavLink className="mobile-contact" to="/contact" onClick={closeMenu}>
+            Contact <FiArrowUpRight aria-hidden="true" />
+          </NavLink>
+        </nav>
+        <Link className="pill-button pill-outline nav-contact" to="/contact">
+          Let’s talk <FiArrowUpRight aria-hidden="true" />
+        </Link>
+      </div>
+    </header>
   );
 }
 
-export default NavBar;
+export default Navbar;
