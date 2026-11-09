@@ -10,10 +10,10 @@ const highlights = [
 
 export default function Experience() {
   return (
-    <section className="site-shell work-section" aria-labelledby="experience-heading">
+    <section id="experience" className="site-shell work-section experience-section" aria-labelledby="experience-heading" tabIndex={-1}>
       <div className="section-intro">
         <div>
-          <p className="eyebrow"><span className="index-mark" /> 01 / Experience</p>
+          <p className="eyebrow"><span className="index-mark" /> Experience</p>
           <h2 id="experience-heading">Work <em>experience.</em></h2>
         </div>
       </div>

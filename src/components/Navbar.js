@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { FiArrowUpRight, FiMenu, FiX } from "react-icons/fi";
 
 const pages = [
-  ["/", "Home"],
   ["/project", "Projects"],
   ["/about", "About"],
   ["/resume", "Resume"],
@@ -11,6 +10,8 @@ const pages = [
 
 function Navbar() {
   const [expanded, setExpanded] = useState(false);
+  const { pathname, hash } = useLocation();
+  const onExperience = pathname === "/" && hash === "#experience";
   const closeMenu = () => setExpanded(false);
 
   return (
@@ -35,8 +36,14 @@ function Navbar() {
           aria-label="Main navigation"
           className={expanded ? "site-nav is-open" : "site-nav"}
         >
+          <Link to="/" aria-current={pathname === "/" && !onExperience ? "page" : undefined} onClick={closeMenu}>
+            Home
+          </Link>
+          <Link to="/#experience" aria-current={onExperience ? "location" : undefined} onClick={closeMenu}>
+            Experience
+          </Link>
           {pages.map(([path, label]) => (
-            <NavLink key={path} to={path} end={path === "/"} onClick={closeMenu}>
+            <NavLink key={path} to={path} onClick={closeMenu}>
               {label}
             </NavLink>
           ))}

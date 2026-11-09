@@ -1,15 +1,18 @@
 import React from "react";
 import ProjectCard from "./ProjectCards";
-import { FiActivity, FiBriefcase, FiCompass, FiFileText, FiMessageSquare } from "react-icons/fi";
+import { FiActivity, FiArrowUpRight, FiBriefcase, FiCompass, FiFileText, FiMessageSquare, FiShare2 } from "react-icons/fi";
+import "./HighlightedProjects.css";
 
 const projects = [
   {
     icon: FiCompass,
-    coverName: "Interactive Story Game",
-    title: "AI-Powered Interactive Story Game",
+    coverName: "TaleCraft",
+    title: "TaleCraft - Ai powered game",
     category: "Generative AI",
     description: "An LLM-powered adventure that generates three-chapter branching stories. A FastAPI and PostgreSQL backend saves player choices and progress, and GitHub Actions runs 17 backend tests.",
     technologies: ["FastAPI", "React", "LangChain", "OpenRouter", "PostgreSQL", "Docker"],
+    highlightedTechnologies: ["FastAPI", "React", "PostgreSQL"],
+    highlightIcon: FiShare2,
     ghLink: "https://github.com/RahulVerma32/Interactive-Game",
     demoLink: "https://interactive-game-three.vercel.app",
   },
@@ -20,6 +23,7 @@ const projects = [
     category: "Real-time systems",
     description: "A messaging platform that supports 100+ concurrent connections, with WebRTC video calls, typing indicators, read receipts, and push notifications. Optimized Cloudinary uploads cut payload size by 60%.",
     technologies: ["MongoDB", "Express", "React", "Node.js", "Socket.IO", "WebRTC", "Cloudinary"],
+    highlightedTechnologies: ["React", "Socket.IO", "WebRTC"],
     ghLink: "https://github.com/RahulVerma32/ChatMitra",
     demoLink: "https://chatmitra-eb8k.onrender.com/",
   },
@@ -54,14 +58,36 @@ const projects = [
 ];
 
 export function ProjectGrid({ featured = false }) {
-  const visibleProjects = featured ? projects.slice(0, 2) : projects;
+  if (featured) {
+    return (
+      <div className="highlighted-project-grid">
+        {projects.filter((project) => project.highlightedTechnologies).map((project) => {
+          const Icon = project.highlightIcon || project.icon;
+
+          return (
+            <article className="highlighted-project" key={project.title}>
+              <a href={project.demoLink} target="_blank" rel="noreferrer" aria-label={`Open live demo for ${project.title}`}>
+                <div className="highlighted-project-icon" aria-hidden="true"><Icon /></div>
+                <div className="highlighted-project-info">
+                  <h3>{project.title}</h3>
+                  <p>{project.highlightedTechnologies.join(" · ")}</p>
+                </div>
+                <FiArrowUpRight className="highlighted-project-arrow" aria-hidden="true" />
+              </a>
+            </article>
+          );
+        })}
+      </div>
+    );
+  }
+
   return (
     <div className="project-grid">
-      {visibleProjects.map((project, index) => (
+      {projects.map((project, index) => (
         <ProjectCard
           key={project.title}
           number={index + 1}
-          titleAs={featured ? "h3" : "h2"}
+          titleAs="h2"
           {...project}
         />
       ))}
@@ -73,8 +99,8 @@ export default function Projects() {
   return (
     <section className="site-shell inner-page">
       <div className="page-heading">
-        <p className="eyebrow"><span className="index-mark" /> 02 / Projects</p>
-        <h1>Selected <em>work.</em></h1>
+        <p className="eyebrow"><span className="index-mark" /> Projects</p>
+        <h1>Featured <em>projects</em></h1>
         <p>Web applications, real-time systems, and experiments with AI.</p>
       </div>
       <ProjectGrid />

@@ -7,9 +7,9 @@ function About() {
   return (
     <section className="site-shell inner-page">
       <div className="page-heading">
-        <p className="eyebrow"><span className="index-mark" /> 03 / About</p>
-        <h1>About <em>me.</em></h1>
-        <p>I’m Rahul Verma, a software developer from Ranchi, India with a focus on backend systems.</p>
+        <p className="eyebrow"><span className="index-mark" /> About</p>
+        <h1>About <em>me</em></h1>
+        <p>I’m Rahul Verma, a software developer from Ranchi, India with a focus on Fullstack Development and AI.</p>
       </div>
 
       <div className="about-layout">
@@ -22,7 +22,7 @@ function About() {
           <h2>A little more about me</h2>
           <p>I graduated from IIIT Bhopal in June 2026 with a B.Tech in Electronics and Communication Engineering and a 9.00/10 GPA.</p>
           <p>As a teaching assistant at IIIT Bhopal, I helped over 150 students learn the fundamentals of computer science.</p>
-          <p>Outside of coding, I enjoy playing games, exploring new technologies, and traveling.</p>
+          <p>Outside of coding, I enjoy playing games, reading, and traveling.</p>
         </div>
       </div>
 
